@@ -12,7 +12,7 @@ class Expense {
     var amount: Int = 0
 }
 
-class ExpenseReport() {
+class ExpenseReport {
     fun printReport(expenses: List<Expense>) {
         println("Expenses ${Date()}")
         val expenseStatement = calculateExpenseReport(expenses)
@@ -26,12 +26,12 @@ class ExpenseReport() {
         val expenseStatement = ExpenseStatement()
 
         for (expense in expenses) {
-            if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST) {
+            if (checkForMealExpense(expense)) {
                 totalMealExpenses += expense.amount
             }
+
             val expenseName = getExpenseName(expense)
-            val mealOverExpensesMarker =
-                if (isMealExpenseCrossingThreshold(expense)) "X" else " "
+            val mealOverExpensesMarker = if (isMealExpenseCrossingThreshold(expense)) "X" else " "
 
             println(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker)
 
@@ -41,6 +41,9 @@ class ExpenseReport() {
         expenseStatement.totalAmount = totalExpense
         return expenseStatement
     }
+
+    private fun checkForMealExpense(expense: Expense) =
+        expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST
 
     private fun getExpenseName(expense: Expense) = when (expense.type) {
         ExpenseType.DINNER -> "Dinner"
