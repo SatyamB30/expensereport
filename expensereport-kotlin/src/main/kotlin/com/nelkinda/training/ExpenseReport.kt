@@ -15,17 +15,12 @@ class Expense {
 class ExpenseReport() {
     fun printReport(expenses: List<Expense>) {
         println("Expenses ${Date()}")
-
         val expenseStatement = calculateExpenseReport(expenses)
-
-
         println("Meal expenses: ${expenseStatement.mealExpense}")
         println("Total expenses: ${expenseStatement.totalAmount}")
     }
 
-    private fun calculateExpenseReport(
-        expenses: List<Expense>
-    ): ExpenseStatement {
+    private fun calculateExpenseReport(expenses: List<Expense>): ExpenseStatement {
         var totalMealExpenses = 0
         var totalExpense = 0
         val expenseStatement = ExpenseStatement()
@@ -35,11 +30,10 @@ class ExpenseReport() {
                 totalMealExpenses += expense.amount
             }
 
-            var expenseName = ""
-            when (expense.type) {
-                ExpenseType.DINNER -> expenseName = "Dinner"
-                ExpenseType.BREAKFAST -> expenseName = "Breakfast"
-                ExpenseType.CAR_RENTAL -> expenseName = "Car Rental"
+            val expenseName = when (expense.type) {
+                ExpenseType.DINNER -> "Dinner"
+                ExpenseType.BREAKFAST -> "Breakfast"
+                ExpenseType.CAR_RENTAL -> "Car Rental"
             }
 
             val mealOverExpensesMarker =
