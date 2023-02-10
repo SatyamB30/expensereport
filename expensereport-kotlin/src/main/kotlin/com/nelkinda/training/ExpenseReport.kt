@@ -4,7 +4,7 @@ import com.nelkinda.training.model.ExpenseStatement
 import java.util.*
 
 enum class ExpenseType {
-    DINNER, BREAKFAST, CAR_RENTAL
+    DINNER, BREAKFAST, CAR_RENTAL, LUNCH
 }
 
 class Expense {
@@ -49,6 +49,7 @@ class ExpenseReport {
         ExpenseType.DINNER -> "Dinner"
         ExpenseType.BREAKFAST -> "Breakfast"
         ExpenseType.CAR_RENTAL -> "Car Rental"
+        ExpenseType.LUNCH -> "Lunch"
     }
 
     private fun isMealExpenseCrossingThreshold(expense: Expense) =
