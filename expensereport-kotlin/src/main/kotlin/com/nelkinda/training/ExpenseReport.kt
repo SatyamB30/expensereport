@@ -1,6 +1,7 @@
 package com.nelkinda.training
 
-import java.util.Date
+import com.nelkinda.training.model.ExpenseStatement
+import java.util.*
 
 enum class ExpenseType {
     DINNER, BREAKFAST, CAR_RENTAL
@@ -11,11 +12,11 @@ class Expense {
     var amount: Int = 0
 }
 
-class ExpenseReport {
-    fun printReport(expenses: List<Expense>) {
+class ExpenseReport() {
+    fun printReport(expenses: List<Expense>): ExpenseStatement {
         var total = 0
         var mealExpenses = 0
-
+        val expenseStatement = ExpenseStatement(mealExpenses, total)
         println("Expenses ${Date()}")
 
         for (expense in expenses) {
@@ -30,7 +31,8 @@ class ExpenseReport {
                 ExpenseType.CAR_RENTAL -> expenseName = "Car Rental"
             }
 
-            val mealOverExpensesMarker = if (expense.type == ExpenseType.DINNER && expense.amount > 5000 || expense.type == ExpenseType.BREAKFAST && expense.amount > 1000) "X" else " "
+            val mealOverExpensesMarker =
+                if (expense.type == ExpenseType.DINNER && expense.amount > 5000 || expense.type == ExpenseType.BREAKFAST && expense.amount > 1000) "X" else " "
 
             println(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker)
 
@@ -39,5 +41,6 @@ class ExpenseReport {
 
         println("Meal expenses: $mealExpenses")
         println("Total expenses: $total")
+        return expenseStatement
     }
 }
