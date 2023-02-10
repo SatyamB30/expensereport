@@ -43,7 +43,7 @@ class ExpenseReport {
     }
 
     private fun checkForMealExpense(expense: Expense) =
-        expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST
+        expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST || expense.type == ExpenseType.LUNCH
 
     private fun getExpenseName(expense: Expense) = when (expense.type) {
         ExpenseType.DINNER -> "Dinner"
@@ -53,5 +53,5 @@ class ExpenseReport {
     }
 
     private fun isMealExpenseCrossingThreshold(expense: Expense) =
-        expense.type == ExpenseType.DINNER && expense.amount > 5000 || expense.type == ExpenseType.BREAKFAST && expense.amount > 1000
+        expense.type == ExpenseType.DINNER && expense.amount > 5000 || expense.type == ExpenseType.BREAKFAST && expense.amount > 1000  || expense.type == ExpenseType.LUNCH && expense.amount > 2000
 }
