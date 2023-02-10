@@ -13,15 +13,26 @@ class Expense {
 }
 
 class ExpenseReport() {
-    fun printReport(expenses: List<Expense>): ExpenseStatement {
-        var total = 0
-        var mealExpenses = 0
-        val expenseStatement = ExpenseStatement(mealExpenses, total)
+    fun printReport(expenses: List<Expense>) {
         println("Expenses ${Date()}")
+
+        val expenseStatement = calculateExpenseReport(expenses)
+
+
+        println("Meal expenses: ${expenseStatement.mealExpense}")
+        println("Total expenses: ${expenseStatement.totalAmount}")
+    }
+
+    private fun calculateExpenseReport(
+        expenses: List<Expense>
+    ): ExpenseStatement {
+        var totalMealExpenses = 0
+        var totalExpense = 0
+        val expenseStatement = ExpenseStatement()
 
         for (expense in expenses) {
             if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST) {
-                mealExpenses += expense.amount
+                totalMealExpenses += expense.amount
             }
 
             var expenseName = ""
@@ -36,11 +47,10 @@ class ExpenseReport() {
 
             println(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker)
 
-            total += expense.amount
+            totalExpense += expense.amount
         }
-
-        println("Meal expenses: $mealExpenses")
-        println("Total expenses: $total")
+        expenseStatement.mealExpense = totalMealExpenses
+        expenseStatement.totalAmount = totalExpense
         return expenseStatement
     }
 }

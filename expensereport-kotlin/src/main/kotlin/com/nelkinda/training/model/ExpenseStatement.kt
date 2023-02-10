@@ -1,3 +1,3 @@
 package com.nelkinda.training.model
 
-data class ExpenseStatement(val mealExpense: Int, val totalAmount: Int) {}
+data class ExpenseStatement(var mealExpense: Int =0, var totalAmount: Int = 0) {}
