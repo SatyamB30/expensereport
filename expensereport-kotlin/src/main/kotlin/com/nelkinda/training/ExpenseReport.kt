@@ -43,7 +43,7 @@ class ExpenseReport() {
             }
 
             val mealOverExpensesMarker =
-                if (expense.type == ExpenseType.DINNER && expense.amount > 5000 || expense.type == ExpenseType.BREAKFAST && expense.amount > 1000) "X" else " "
+                if (isMealExpenseCrossingThreshold(expense)) "X" else " "
 
             println(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker)
 
@@ -53,4 +53,7 @@ class ExpenseReport() {
         expenseStatement.totalAmount = totalExpense
         return expenseStatement
     }
+
+    private fun isMealExpenseCrossingThreshold(expense: Expense) =
+        expense.type == ExpenseType.DINNER && expense.amount > 5000 || expense.type == ExpenseType.BREAKFAST && expense.amount > 1000
 }
