@@ -59,13 +59,35 @@ class ExpenseReportTest {
 
         //Arrange
         val carRentalExpense = createExpense(ExpenseType.CAR_RENTAL, 1000)
-        val breakfastExpense = createExpense(ExpenseType.DINNER, 5100)
-        val expenses = arrayListOf(carRentalExpense, breakfastExpense)
+        val dinnerExpense = createExpense(ExpenseType.DINNER, 5100)
+        val expenses = arrayListOf(carRentalExpense, dinnerExpense)
         val expected = "Expenses Fri Feb 10 11:10:59 IST 2023\n" +
                 "Car Rental\t1000\t \n" +
                 "Dinner\t5100\tX\n" +
                 "Meal expenses: 5100\n" +
                 "Total expenses: 6100\n"
+//        ACT
+        ExpenseReport().printReport(expenses)
+
+        val result = outputFromConsole.toString()
+        val actualReportStatement = result.split("\n")
+        val expectedReportStatement = expected.split("\n")
+
+        performAssert(actualReportStatement, expectedReportStatement)
+
+    }
+
+    @Test
+    fun `It should print X when breakfast when it crosses threshold of 1000`() {
+
+
+        //Arrange
+        val breakfastExpense = createExpense(ExpenseType.BREAKFAST, 51100)
+        val expenses = arrayListOf(breakfastExpense)
+        val expected = "Expenses Fri Feb 10 11:10:59 IST 2023\n" +
+                "Breakfast\t51100\tX\n" +
+                "Meal expenses: 51100\n" +
+                "Total expenses: 51100\n"
 //        ACT
         ExpenseReport().printReport(expenses)
 
