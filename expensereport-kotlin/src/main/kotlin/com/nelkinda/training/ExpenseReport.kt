@@ -29,13 +29,7 @@ class ExpenseReport() {
             if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST) {
                 totalMealExpenses += expense.amount
             }
-
-            val expenseName = when (expense.type) {
-                ExpenseType.DINNER -> "Dinner"
-                ExpenseType.BREAKFAST -> "Breakfast"
-                ExpenseType.CAR_RENTAL -> "Car Rental"
-            }
-
+            val expenseName = getExpenseName(expense)
             val mealOverExpensesMarker =
                 if (isMealExpenseCrossingThreshold(expense)) "X" else " "
 
@@ -46,6 +40,12 @@ class ExpenseReport() {
         expenseStatement.mealExpense = totalMealExpenses
         expenseStatement.totalAmount = totalExpense
         return expenseStatement
+    }
+
+    private fun getExpenseName(expense: Expense) = when (expense.type) {
+        ExpenseType.DINNER -> "Dinner"
+        ExpenseType.BREAKFAST -> "Breakfast"
+        ExpenseType.CAR_RENTAL -> "Car Rental"
     }
 
     private fun isMealExpenseCrossingThreshold(expense: Expense) =
